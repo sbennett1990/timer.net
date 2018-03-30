@@ -45,6 +45,7 @@
             // 
             // btnStart
             // 
+            this.btnStart.Font = new System.Drawing.Font("Lucida Sans Unicode", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStart.Location = new System.Drawing.Point(36, 92);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
@@ -55,6 +56,7 @@
             // 
             // btnReset
             // 
+            this.btnReset.Font = new System.Drawing.Font("Lucida Sans Unicode", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReset.Location = new System.Drawing.Point(125, 92);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 23);
@@ -70,32 +72,35 @@
             // 
             // txtHours
             // 
-            this.txtHours.Location = new System.Drawing.Point(36, 25);
+            this.txtHours.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHours.Location = new System.Drawing.Point(38, 25);
             this.txtHours.Name = "txtHours";
-            this.txtHours.Size = new System.Drawing.Size(40, 20);
+            this.txtHours.Size = new System.Drawing.Size(40, 18);
             this.txtHours.TabIndex = 2;
             this.txtHours.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtMinutes
             // 
-            this.txtMinutes.Location = new System.Drawing.Point(98, 25);
+            this.txtMinutes.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMinutes.Location = new System.Drawing.Point(100, 25);
             this.txtMinutes.Name = "txtMinutes";
-            this.txtMinutes.Size = new System.Drawing.Size(40, 20);
+            this.txtMinutes.Size = new System.Drawing.Size(40, 18);
             this.txtMinutes.TabIndex = 3;
             this.txtMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtSeconds
             // 
-            this.txtSeconds.Location = new System.Drawing.Point(160, 25);
+            this.txtSeconds.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSeconds.Location = new System.Drawing.Point(162, 25);
             this.txtSeconds.Name = "txtSeconds";
-            this.txtSeconds.Size = new System.Drawing.Size(40, 20);
+            this.txtSeconds.Size = new System.Drawing.Size(40, 18);
             this.txtSeconds.TabIndex = 4;
             this.txtSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(82, 28);
+            this.label1.Location = new System.Drawing.Point(84, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 5;
@@ -104,7 +109,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(144, 28);
+            this.label2.Location = new System.Drawing.Point(146, 28);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 6;
@@ -113,9 +118,10 @@
             // lblRemaining
             // 
             this.lblRemaining.AutoSize = true;
-            this.lblRemaining.Location = new System.Drawing.Point(93, 61);
+            this.lblRemaining.Font = new System.Drawing.Font("Lucida Console", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRemaining.Location = new System.Drawing.Point(62, 57);
             this.lblRemaining.Name = "lblRemaining";
-            this.lblRemaining.Size = new System.Drawing.Size(49, 13);
+            this.lblRemaining.Size = new System.Drawing.Size(114, 22);
             this.lblRemaining.TabIndex = 7;
             this.lblRemaining.Text = "00:00:00";
             this.lblRemaining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -123,9 +129,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(45, 8);
+            this.label3.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(47, 8);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(23, 13);
+            this.label3.Size = new System.Drawing.Size(23, 12);
             this.label3.TabIndex = 8;
             this.label3.Text = "HH";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -133,9 +140,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(105, 8);
+            this.label4.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(107, 8);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(25, 13);
+            this.label4.Size = new System.Drawing.Size(27, 12);
             this.label4.TabIndex = 9;
             this.label4.Text = "MM";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -143,9 +151,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(169, 8);
+            this.label5.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(171, 8);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(21, 13);
+            this.label5.Size = new System.Drawing.Size(19, 12);
             this.label5.TabIndex = 10;
             this.label5.Text = "SS";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -166,7 +175,9 @@
             this.Controls.Add(this.txtHours);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnStart);
+            this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Timer";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
