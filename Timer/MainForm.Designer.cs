@@ -38,6 +38,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblRemaining = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnStart
@@ -67,32 +70,32 @@
             // 
             // txtHours
             // 
-            this.txtHours.Location = new System.Drawing.Point(36, 47);
+            this.txtHours.Location = new System.Drawing.Point(36, 25);
             this.txtHours.Name = "txtHours";
             this.txtHours.Size = new System.Drawing.Size(40, 20);
             this.txtHours.TabIndex = 2;
-            this.txtHours.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHours.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtMinutes
             // 
-            this.txtMinutes.Location = new System.Drawing.Point(98, 47);
+            this.txtMinutes.Location = new System.Drawing.Point(98, 25);
             this.txtMinutes.Name = "txtMinutes";
             this.txtMinutes.Size = new System.Drawing.Size(40, 20);
             this.txtMinutes.TabIndex = 3;
-            this.txtMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtSeconds
             // 
-            this.txtSeconds.Location = new System.Drawing.Point(160, 47);
+            this.txtSeconds.Location = new System.Drawing.Point(160, 25);
             this.txtSeconds.Name = "txtSeconds";
             this.txtSeconds.Size = new System.Drawing.Size(40, 20);
             this.txtSeconds.TabIndex = 4;
-            this.txtSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(82, 50);
+            this.label1.Location = new System.Drawing.Point(82, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(10, 13);
             this.label1.TabIndex = 5;
@@ -101,7 +104,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(144, 50);
+            this.label2.Location = new System.Drawing.Point(144, 28);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(10, 13);
             this.label2.TabIndex = 6;
@@ -110,18 +113,51 @@
             // lblRemaining
             // 
             this.lblRemaining.AutoSize = true;
-            this.lblRemaining.Location = new System.Drawing.Point(95, 9);
+            this.lblRemaining.Location = new System.Drawing.Point(93, 61);
             this.lblRemaining.Name = "lblRemaining";
             this.lblRemaining.Size = new System.Drawing.Size(49, 13);
             this.lblRemaining.TabIndex = 7;
             this.lblRemaining.Text = "00:00:00";
             this.lblRemaining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(45, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(23, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "HH";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(105, 8);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(25, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "MM";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(169, 8);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(21, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "SS";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(230, 130);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.lblRemaining);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -148,6 +184,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblRemaining;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }
 
