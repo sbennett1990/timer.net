@@ -141,7 +141,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(107, 8);
+            this.label4.Location = new System.Drawing.Point(106, 8);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 12);
             this.label4.TabIndex = 9;
@@ -152,7 +152,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(171, 8);
+            this.label5.Location = new System.Drawing.Point(172, 8);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(19, 12);
             this.label5.TabIndex = 10;
