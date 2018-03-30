@@ -77,4 +77,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy /Y "$(SolutionDir)\Alarm04.wav" "$(TargetDir)"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
