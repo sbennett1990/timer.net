@@ -150,6 +150,14 @@ namespace Timer
                 this.txtSeconds.Enabled = true;
                 started = false;
 
+                // bring the alarm to the foreground
+                if (this.WindowState != FormWindowState.Minimized)
+                {
+                    this.WindowState = FormWindowState.Minimized;
+                }
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+
                 using (DoneBox done = new DoneBox())
                 {
                     if (alarmPlayer != null)
