@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Media;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,11 +21,27 @@ namespace Timer
             new TimeSpan(TimeSpan.TicksPerSecond);
         private TimeSpan time;
         private bool started;
+        private SoundPlayer alarmPlayer;
+        private static readonly SystemSound defaultSound = SystemSounds.Beep;
 
         public MainForm()
         {
             InitializeComponent();
 
+            // Load the alarm sound file
+            try
+            {
+                string location = Assembly.GetExecutingAssembly().Location;
+                DirectoryInfo folder = Directory.GetParent(location);
+                var soundFiles = folder.GetFiles("Alarm04.wav", SearchOption.TopDirectoryOnly);
+                string soundPath = soundFiles.Where(x => x.Name.Equals("Alarm04.wav")).Select(x => x.FullName).FirstOrDefault();
+                alarmPlayer = new SoundPlayer(soundPath);
+                alarmPlayer.Load();
+            }
+            catch
+            {
+                alarmPlayer = null;
+            }
             time = defaultTime();
             started = false;
         }
@@ -136,11 +155,19 @@ namespace Timer
                 this.txtMinutes.Enabled = true;
                 this.txtSeconds.Enabled = true;
                 started = false;
-                // TODO: play a sound
+
                 using (DoneBox done = new DoneBox())
                 {
+                    if (alarmPlayer != null)
+                        alarmPlayer.PlayLooping();
+                    else
+                        defaultSound.Play();
+
                     done.ShowDialog();
                 }
+
+                if (alarmPlayer != null)
+                    alarmPlayer.Stop();
             }
         }
 
