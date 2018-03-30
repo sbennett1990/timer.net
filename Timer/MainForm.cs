@@ -13,76 +13,104 @@ namespace Timer
 {
     public partial class MainForm : Form
     {
+        private const string defaultTimeLabel = "00:00:00";
         private static readonly TimeSpan decrementAmount =
             new TimeSpan(TimeSpan.TicksPerSecond);
         private TimeSpan time;
+        private bool started;
 
         public MainForm()
         {
             InitializeComponent();
 
             time = defaultTime();
+            started = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            this.lblRemaining.Text = defaultTimeLabel;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            int hours = 0;
-            if (!string.IsNullOrWhiteSpace(this.txtHours.Text))
+            if (!started)
             {
-                hours = this.txtHours.Text.ToInt() ?? -1;
-                if (hours < 0)
+                // Act as a "Start" button
+
+                if (this.lblRemaining.Text.Equals(defaultTimeLabel))
                 {
-                    // TODO: show a warning
+                    int hours = 0;
+                    if (!string.IsNullOrWhiteSpace(this.txtHours.Text))
+                    {
+                        hours = this.txtHours.Text.ToInt() ?? -1;
+                        if (hours < 0)
+                        {
+                            // TODO: show a warning
+                            this.txtHours.Text = string.Empty;
+                        }
+                    }
+
+                    int minutes = 0;
+                    if (!string.IsNullOrWhiteSpace(this.txtMinutes.Text))
+                    {
+                        minutes = this.txtMinutes.Text.ToInt() ?? -1;
+                        if (minutes < 0)
+                        {
+                            // TODO: show a warning
+                            this.txtMinutes.Text = string.Empty;
+                        }
+                    }
+
+                    int seconds = 0;
+                    if (!string.IsNullOrWhiteSpace(this.txtSeconds.Text))
+                    {
+                        seconds = this.txtSeconds.Text.ToInt() ?? -1;
+                        if (seconds < 0)
+                        {
+                            // TODO: show a warning
+                            this.txtSeconds.Text = string.Empty;
+                        }
+                    }
+
+                    time = new TimeSpan(hours, minutes, seconds);
+                }
+
+                if (time.CompareTo(TimeSpan.Zero) <= 0)
+                {
+                    // TODO: display a warning
                     this.txtHours.Text = string.Empty;
-                }
-            }
-
-            int minutes = 0;
-            if (!string.IsNullOrWhiteSpace(this.txtMinutes.Text))
-            {
-                minutes = this.txtMinutes.Text.ToInt() ?? -1;
-                if (minutes < 0)
-                {
-                    // TODO: show a warning
                     this.txtMinutes.Text = string.Empty;
-                }
-            }
-
-            int seconds = 0;
-            if (!string.IsNullOrWhiteSpace(this.txtSeconds.Text))
-            {
-                seconds = this.txtSeconds.Text.ToInt() ?? -1;
-                if (seconds < 0)
-                {
-                    // TODO: show a warning
                     this.txtSeconds.Text = string.Empty;
                 }
-            }
-
-            time = new TimeSpan(hours, minutes, seconds);
-
-            if (time.CompareTo(TimeSpan.Zero) <= 0)
-            {
-                // TODO: display a warning
-                this.txtHours.Text = string.Empty;
-                this.txtMinutes.Text = string.Empty;
-                this.txtSeconds.Text = string.Empty;
+                else
+                {
+                    started = true;
+                    this.btnStart.Text = "Stop";
+                    this.clockTimer.Enabled = true;
+                    this.lblRemaining.Text = time.ToString(@"hh\:mm\:ss");
+                }
             }
             else
             {
-                this.clockTimer.Enabled = true;
-                this.lblRemaining.Text = time.ToString(@"hh\:mm\:ss");
+                // Act as a "Stop" button
+
+                started = false;
+                this.btnStart.Text = "Start";
+                this.clockTimer.Enabled = false;
             }
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
+        private void btnReset_Click(object sender, EventArgs e)
         {
             this.clockTimer.Enabled = false;
+            this.btnStart.Text = "Start";
+            this.txtHours.Text = string.Empty;
+            this.txtMinutes.Text = string.Empty;
+            this.txtSeconds.Text = string.Empty;
+            time = defaultTime();
+            this.lblRemaining.Text = defaultTimeLabel;
+            started = false;
         }
 
         private void clockTimer_Tick(object sender, EventArgs e)
@@ -94,7 +122,10 @@ namespace Timer
             {
                 // timer done!
                 this.clockTimer.Enabled = false;
+                this.btnStart.Text = "Start";
                 time = defaultTime();
+                this.lblRemaining.Text = defaultTimeLabel;
+                started = false;
                 // TODO: play a sound
                 using (DoneBox done = new DoneBox())
                 {

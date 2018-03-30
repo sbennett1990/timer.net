@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.btnStart = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
             this.clockTimer = new System.Windows.Forms.Timer(this.components);
             this.txtHours = new System.Windows.Forms.TextBox();
             this.txtMinutes = new System.Windows.Forms.TextBox();
@@ -50,15 +50,15 @@
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // btnStop
+            // btnReset
             // 
-            this.btnStop.Location = new System.Drawing.Point(125, 92);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 23);
-            this.btnStop.TabIndex = 1;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            this.btnReset.Location = new System.Drawing.Point(125, 92);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(75, 23);
+            this.btnReset.TabIndex = 1;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // clockTimer
             // 
@@ -128,7 +128,7 @@
             this.Controls.Add(this.txtSeconds);
             this.Controls.Add(this.txtMinutes);
             this.Controls.Add(this.txtHours);
-            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnStart);
             this.Name = "MainForm";
             this.Text = "Timer";
@@ -140,7 +140,7 @@
 
         #endregion
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Timer clockTimer;
         private System.Windows.Forms.TextBox txtHours;
         private System.Windows.Forms.TextBox txtMinutes;
