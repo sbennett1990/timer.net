@@ -89,6 +89,10 @@ namespace Timer
                     this.btnStart.Text = "Stop";
                     this.clockTimer.Enabled = true;
                     this.lblRemaining.Text = time.ToString(@"hh\:mm\:ss");
+
+                    this.txtHours.Enabled = false;
+                    this.txtMinutes.Enabled = false;
+                    this.txtSeconds.Enabled = false;
                 }
             }
             else
@@ -110,6 +114,9 @@ namespace Timer
             this.txtSeconds.Text = string.Empty;
             time = defaultTime();
             this.lblRemaining.Text = defaultTimeLabel;
+            this.txtHours.Enabled = true;
+            this.txtMinutes.Enabled = true;
+            this.txtSeconds.Enabled = true;
             started = false;
         }
 
@@ -125,6 +132,9 @@ namespace Timer
                 this.btnStart.Text = "Start";
                 time = defaultTime();
                 this.lblRemaining.Text = defaultTimeLabel;
+                this.txtHours.Enabled = true;
+                this.txtMinutes.Enabled = true;
+                this.txtSeconds.Enabled = true;
                 started = false;
                 // TODO: play a sound
                 using (DoneBox done = new DoneBox())
