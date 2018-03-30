@@ -165,6 +165,45 @@ namespace Timer
             }
         }
 
+        private void txtSeconds_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case '\r': // Enter key
+                    btnStart.PerformClick();
+                    e.Handled = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void txtMinutes_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case '\r': // Enter key
+                    btnStart.PerformClick();
+                    e.Handled = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void txtHours_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case '\r': // Enter key
+                    btnStart.PerformClick();
+                    e.Handled = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private static TimeSpan defaultTime()
         {
             return new TimeSpan(hours: 0, minutes: 0, seconds: 1);

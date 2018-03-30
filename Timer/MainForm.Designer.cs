@@ -78,6 +78,7 @@
             this.txtHours.Size = new System.Drawing.Size(40, 18);
             this.txtHours.TabIndex = 2;
             this.txtHours.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtHours.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHours_KeyPress);
             // 
             // txtMinutes
             // 
@@ -87,6 +88,7 @@
             this.txtMinutes.Size = new System.Drawing.Size(40, 18);
             this.txtMinutes.TabIndex = 3;
             this.txtMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtMinutes.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMinutes_KeyPress);
             // 
             // txtSeconds
             // 
@@ -96,6 +98,7 @@
             this.txtSeconds.Size = new System.Drawing.Size(40, 18);
             this.txtSeconds.TabIndex = 4;
             this.txtSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtSeconds.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSeconds_KeyPress);
             // 
             // label1
             // 
