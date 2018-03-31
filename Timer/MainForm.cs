@@ -112,9 +112,7 @@ namespace Timer {
                 }
 
                 if (timer.CompareTo(TimeSpan.Zero) <= 0) {
-                    this.txtHours.Text = string.Empty;
-                    this.txtMinutes.Text = string.Empty;
-                    this.txtSeconds.Text = string.Empty;
+                    clearInputFields();
                 }
                 else {
                     pushStartStopButton(start: true);
@@ -130,7 +128,7 @@ namespace Timer {
 
         private void btnReset_Click(object sender, EventArgs e) {
             pushStartStopButton(start: false);
-            enableInput(clearFields: true);
+            enableInput(clearInput: true);
             timer = DEFAULT_TIME;
             this.lblRemaining.Text = DEFAULT_TIME_LABEL;
         }
@@ -181,15 +179,13 @@ namespace Timer {
             }
         }
 
-        private void enableInput(bool clearFields = false) {
+        private void enableInput(bool clearInput = false) {
             this.txtHours.Enabled = true;
             this.txtMinutes.Enabled = true;
             this.txtSeconds.Enabled = true;
 
-            if (clearFields) {
-                this.txtHours.Text = string.Empty;
-                this.txtMinutes.Text = string.Empty;
-                this.txtSeconds.Text = string.Empty;
+            if (clearInput) {
+                clearInputFields();
             }
         }
 
@@ -197,6 +193,12 @@ namespace Timer {
             this.txtHours.Enabled = false;
             this.txtMinutes.Enabled = false;
             this.txtSeconds.Enabled = false;
+        }
+
+        private void clearInputFields() {
+            this.txtHours.Text = string.Empty;
+            this.txtMinutes.Text = string.Empty;
+            this.txtSeconds.Text = string.Empty;
         }
     }
 }
