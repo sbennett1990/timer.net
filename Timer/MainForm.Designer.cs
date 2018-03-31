@@ -124,9 +124,8 @@
             this.lblRemaining.Font = new System.Drawing.Font("Lucida Console", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRemaining.Location = new System.Drawing.Point(62, 57);
             this.lblRemaining.Name = "lblRemaining";
-            this.lblRemaining.Size = new System.Drawing.Size(114, 22);
+            this.lblRemaining.Size = new System.Drawing.Size(0, 22);
             this.lblRemaining.TabIndex = 7;
-            this.lblRemaining.Text = "00:00:00";
             this.lblRemaining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3

@@ -6,110 +6,133 @@ using System.Reflection;
 using System.Windows.Forms;
 using Timer.Utils;
 
-namespace Timer
-{
-    public partial class MainForm : Form
-    {
-        private const string defaultTimeLabel = "00:00:00";
-        private static readonly TimeSpan decrementAmount =
+namespace Timer {
+    public partial class MainForm : Form {
+        private const string DEFAULT_TIME_LABEL = "00:00:00";
+        private static readonly TimeSpan ONE_SECOND =
             new TimeSpan(TimeSpan.TicksPerSecond);
-        private TimeSpan time;
-        private bool started;
-        private SoundPlayer alarmPlayer;
-        private static readonly SystemSound defaultSound = SystemSounds.Beep;
+        private static readonly TimeSpan DEFAULT_TIME = TimeSpan.Zero;
+        private static readonly SystemSound DEFAULT_SOUND = SystemSounds.Beep;
 
-        public MainForm()
-        {
+        private SoundPlayer alarmSound;
+        private TimeSpan timeLeft;
+        private bool started;
+
+        public MainForm() {
             InitializeComponent();
 
             // Load the alarm sound file
-            try
-            {
-                string location = Assembly.GetExecutingAssembly().Location;
-                DirectoryInfo folder = Directory.GetParent(location);
-                var soundFiles = folder.GetFiles("Alarm04.wav", SearchOption.TopDirectoryOnly);
-                string soundPath = soundFiles.Where(x => x.Name.Equals("Alarm04.wav")).Select(x => x.FullName).FirstOrDefault();
-                alarmPlayer = new SoundPlayer(soundPath);
-                alarmPlayer.Load();
+            try {
+                DirectoryInfo folder = Directory.GetParent(Assembly.GetExecutingAssembly().Location);
+                FileInfo[] soundFiles = folder.GetFiles("Alarm04.wav", SearchOption.TopDirectoryOnly);
+                string soundPath = soundFiles.Select(x => x.FullName).FirstOrDefault();
+                alarmSound = new SoundPlayer(soundPath);
+                alarmSound.Load();
             }
-            catch
-            {
-                alarmPlayer = null;
+            catch {
+                alarmSound = null;
             }
-            time = defaultTime();
+
+            timeLeft = DEFAULT_TIME;
             started = false;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            this.lblRemaining.Text = defaultTimeLabel;
+        private void MainForm_Load(object sender, EventArgs e) {
+            this.lblRemaining.Text = DEFAULT_TIME_LABEL;
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
-        {
-            if (!started)
-            {
+        private void clockTimer_Tick(object sender, EventArgs e) {
+            timeLeft = timeLeft.Subtract(ONE_SECOND);
+            this.lblRemaining.Text = timeLeft.ToString(@"hh\:mm\:ss");
+
+            if (timeLeft.CompareTo(TimeSpan.Zero) <= 0) {
+                // Timer done!
+                this.clockTimer.Enabled = false;
+                this.btnStart.Text = "Start";
+                timeLeft = DEFAULT_TIME;
+                this.lblRemaining.Text = DEFAULT_TIME_LABEL;
+                this.txtHours.Enabled = true;
+                this.txtMinutes.Enabled = true;
+                this.txtSeconds.Enabled = true;
+                started = false;
+
+                // Bring the alarm to the foreground
+                if (this.WindowState != FormWindowState.Minimized) {
+                    this.WindowState = FormWindowState.Minimized;
+                }
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+
+                using (DoneBox done = new DoneBox()) {
+                    if (alarmSound != null) {
+                        alarmSound.PlayLooping();
+                    }
+                    else {
+                        DEFAULT_SOUND.Play();
+                    }
+
+                    done.ShowDialog();
+                }
+
+                if (alarmSound != null) {
+                    alarmSound.Stop();
+                }
+            }
+        }
+
+        private void btnStart_Click(object sender, EventArgs e) {
+            if (!started) {
                 // Act as a "Start" button
 
-                if (this.lblRemaining.Text.Equals(defaultTimeLabel))
-                {
+                if (this.lblRemaining.Text.Equals(DEFAULT_TIME_LABEL)) {
                     int hours = 0;
-                    if (!string.IsNullOrWhiteSpace(this.txtHours.Text))
-                    {
+                    if (!string.IsNullOrWhiteSpace(this.txtHours.Text)) {
                         hours = this.txtHours.Text.ToInt() ?? -1;
-                        if (hours < 0)
-                        {
+                        if (hours < 0) {
                             // TODO: show a warning
                             this.txtHours.Text = string.Empty;
                         }
                     }
 
                     int minutes = 0;
-                    if (!string.IsNullOrWhiteSpace(this.txtMinutes.Text))
-                    {
+                    if (!string.IsNullOrWhiteSpace(this.txtMinutes.Text)) {
                         minutes = this.txtMinutes.Text.ToInt() ?? -1;
-                        if (minutes < 0)
-                        {
+                        if (minutes < 0) {
                             // TODO: show a warning
                             this.txtMinutes.Text = string.Empty;
                         }
                     }
 
                     int seconds = 0;
-                    if (!string.IsNullOrWhiteSpace(this.txtSeconds.Text))
-                    {
+                    if (!string.IsNullOrWhiteSpace(this.txtSeconds.Text)) {
                         seconds = this.txtSeconds.Text.ToInt() ?? -1;
-                        if (seconds < 0)
-                        {
+                        if (seconds < 0) {
                             // TODO: show a warning
                             this.txtSeconds.Text = string.Empty;
                         }
                     }
 
-                    time = new TimeSpan(hours, minutes, seconds);
+                    timeLeft = new TimeSpan(hours, minutes, seconds);
                 }
 
-                if (time.CompareTo(TimeSpan.Zero) <= 0)
-                {
+                if (timeLeft.CompareTo(TimeSpan.Zero) <= 0) {
                     // TODO: display a warning
                     this.txtHours.Text = string.Empty;
                     this.txtMinutes.Text = string.Empty;
                     this.txtSeconds.Text = string.Empty;
                 }
-                else
-                {
+                else {
                     started = true;
                     this.btnStart.Text = "Stop";
                     this.clockTimer.Enabled = true;
-                    this.lblRemaining.Text = time.ToString(@"hh\:mm\:ss");
+                    this.lblRemaining.Text = timeLeft.ToString(@"hh\:mm\:ss");
 
                     this.txtHours.Enabled = false;
                     this.txtMinutes.Enabled = false;
                     this.txtSeconds.Enabled = false;
                 }
             }
-            else
-            {
+            else {
                 // Act as a "Stop" button
 
                 started = false;
@@ -118,65 +141,22 @@ namespace Timer
             }
         }
 
-        private void btnReset_Click(object sender, EventArgs e)
-        {
+        private void btnReset_Click(object sender, EventArgs e) {
             this.clockTimer.Enabled = false;
             this.btnStart.Text = "Start";
             this.txtHours.Text = string.Empty;
             this.txtMinutes.Text = string.Empty;
             this.txtSeconds.Text = string.Empty;
-            time = defaultTime();
-            this.lblRemaining.Text = defaultTimeLabel;
+            timeLeft = DEFAULT_TIME;
+            this.lblRemaining.Text = DEFAULT_TIME_LABEL;
             this.txtHours.Enabled = true;
             this.txtMinutes.Enabled = true;
             this.txtSeconds.Enabled = true;
             started = false;
         }
 
-        private void clockTimer_Tick(object sender, EventArgs e)
-        {
-            time = time.Subtract(decrementAmount);
-            this.lblRemaining.Text = time.ToString(@"hh\:mm\:ss");
-
-            if (time.CompareTo(TimeSpan.Zero) <= 0)
-            {
-                // timer done!
-                this.clockTimer.Enabled = false;
-                this.btnStart.Text = "Start";
-                time = defaultTime();
-                this.lblRemaining.Text = defaultTimeLabel;
-                this.txtHours.Enabled = true;
-                this.txtMinutes.Enabled = true;
-                this.txtSeconds.Enabled = true;
-                started = false;
-
-                // bring the alarm to the foreground
-                if (this.WindowState != FormWindowState.Minimized)
-                {
-                    this.WindowState = FormWindowState.Minimized;
-                }
-                this.Show();
-                this.WindowState = FormWindowState.Normal;
-
-                using (DoneBox done = new DoneBox())
-                {
-                    if (alarmPlayer != null)
-                        alarmPlayer.PlayLooping();
-                    else
-                        defaultSound.Play();
-
-                    done.ShowDialog();
-                }
-
-                if (alarmPlayer != null)
-                    alarmPlayer.Stop();
-            }
-        }
-
-        private void txtSeconds_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            switch (e.KeyChar)
-            {
+        private void txtSeconds_KeyPress(object sender, KeyPressEventArgs e) {
+            switch (e.KeyChar) {
                 case '\r': // Enter key
                     btnStart.PerformClick();
                     e.Handled = true;
@@ -186,10 +166,8 @@ namespace Timer
             }
         }
 
-        private void txtMinutes_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            switch (e.KeyChar)
-            {
+        private void txtMinutes_KeyPress(object sender, KeyPressEventArgs e) {
+            switch (e.KeyChar) {
                 case '\r': // Enter key
                     btnStart.PerformClick();
                     e.Handled = true;
@@ -199,10 +177,8 @@ namespace Timer
             }
         }
 
-        private void txtHours_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            switch (e.KeyChar)
-            {
+        private void txtHours_KeyPress(object sender, KeyPressEventArgs e) {
+            switch (e.KeyChar) {
                 case '\r': // Enter key
                     btnStart.PerformClick();
                     e.Handled = true;
@@ -210,11 +186,6 @@ namespace Timer
                 default:
                     break;
             }
-        }
-
-        private static TimeSpan defaultTime()
-        {
-            return new TimeSpan(hours: 0, minutes: 0, seconds: 1);
         }
     }
 }
