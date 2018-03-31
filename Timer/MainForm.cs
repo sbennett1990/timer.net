@@ -15,7 +15,7 @@ namespace Timer {
         private static readonly SystemSound DEFAULT_SOUND = SystemSounds.Beep;
 
         private SoundPlayer alarmSound;
-        private TimeSpan timeLeft;
+        private TimeSpan timer;
         private bool started;
 
         public MainForm() {
@@ -33,7 +33,7 @@ namespace Timer {
                 alarmSound = null;
             }
 
-            timeLeft = DEFAULT_TIME;
+            timer = DEFAULT_TIME;
             started = false;
         }
 
@@ -42,14 +42,14 @@ namespace Timer {
         }
 
         private void clockTimer_Tick(object sender, EventArgs e) {
-            timeLeft = timeLeft.Subtract(ONE_SECOND);
-            this.lblRemaining.Text = timeLeft.ToString(@"hh\:mm\:ss");
+            timer = timer.Subtract(ONE_SECOND);
+            this.lblRemaining.Text = timer.ToString(@"hh\:mm\:ss");
 
-            if (timeLeft.CompareTo(TimeSpan.Zero) <= 0) {
+            if (timer.CompareTo(TimeSpan.Zero) <= 0) {
                 // Timer done!
                 this.clockTimer.Enabled = false;
                 this.btnStart.Text = "Start";
-                timeLeft = DEFAULT_TIME;
+                timer = DEFAULT_TIME;
                 this.lblRemaining.Text = DEFAULT_TIME_LABEL;
                 this.txtHours.Enabled = true;
                 this.txtMinutes.Enabled = true;
@@ -86,37 +86,36 @@ namespace Timer {
 
                 if (this.lblRemaining.Text.Equals(DEFAULT_TIME_LABEL)) {
                     int hours = 0;
-                    if (!string.IsNullOrWhiteSpace(this.txtHours.Text)) {
-                        hours = this.txtHours.Text.ToInt() ?? -1;
-                        if (hours < 0) {
+                    if (this.txtHours.Text.IsNotEmpty()) {
+                        hours = this.txtHours.Text.ToInt() ?? 0;
+                        if (hours < 1) {
                             // TODO: show a warning
                             this.txtHours.Text = string.Empty;
                         }
                     }
 
                     int minutes = 0;
-                    if (!string.IsNullOrWhiteSpace(this.txtMinutes.Text)) {
-                        minutes = this.txtMinutes.Text.ToInt() ?? -1;
-                        if (minutes < 0) {
+                    if (this.txtMinutes.Text.IsNotEmpty()) {
+                        minutes = this.txtMinutes.Text.ToInt() ?? 0;
+                        if (minutes < 1) {
                             // TODO: show a warning
                             this.txtMinutes.Text = string.Empty;
                         }
                     }
 
                     int seconds = 0;
-                    if (!string.IsNullOrWhiteSpace(this.txtSeconds.Text)) {
-                        seconds = this.txtSeconds.Text.ToInt() ?? -1;
-                        if (seconds < 0) {
+                    if (this.txtSeconds.Text.IsNotEmpty()) {
+                        seconds = this.txtSeconds.Text.ToInt() ?? 0;
+                        if (seconds < 1) {
                             // TODO: show a warning
                             this.txtSeconds.Text = string.Empty;
                         }
                     }
 
-                    timeLeft = new TimeSpan(hours, minutes, seconds);
+                    timer = new TimeSpan(hours, minutes, seconds);
                 }
 
-                if (timeLeft.CompareTo(TimeSpan.Zero) <= 0) {
-                    // TODO: display a warning
+                if (timer.CompareTo(TimeSpan.Zero) <= 0) {
                     this.txtHours.Text = string.Empty;
                     this.txtMinutes.Text = string.Empty;
                     this.txtSeconds.Text = string.Empty;
@@ -125,7 +124,7 @@ namespace Timer {
                     started = true;
                     this.btnStart.Text = "Stop";
                     this.clockTimer.Enabled = true;
-                    this.lblRemaining.Text = timeLeft.ToString(@"hh\:mm\:ss");
+                    this.lblRemaining.Text = timer.ToString(@"hh\:mm\:ss");
 
                     this.txtHours.Enabled = false;
                     this.txtMinutes.Enabled = false;
@@ -147,7 +146,7 @@ namespace Timer {
             this.txtHours.Text = string.Empty;
             this.txtMinutes.Text = string.Empty;
             this.txtSeconds.Text = string.Empty;
-            timeLeft = DEFAULT_TIME;
+            timer = DEFAULT_TIME;
             this.lblRemaining.Text = DEFAULT_TIME_LABEL;
             this.txtHours.Enabled = true;
             this.txtMinutes.Enabled = true;
