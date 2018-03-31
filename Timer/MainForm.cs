@@ -16,7 +16,6 @@ namespace Timer {
 
         private SoundPlayer alarmSound;
         private TimeSpan timer;
-        private bool started;
 
         public MainForm() {
             InitializeComponent();
@@ -34,7 +33,7 @@ namespace Timer {
             }
 
             timer = DEFAULT_TIME;
-            started = false;
+            setStarted(false);
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -77,7 +76,7 @@ namespace Timer {
         }
 
         private void btnStart_Click(object sender, EventArgs e) {
-            if (!started) {
+            if (!started()) {
                 // Act as a "Start" button
 
                 if (this.lblRemaining.Text.Equals(DEFAULT_TIME_LABEL)) {
@@ -168,12 +167,12 @@ namespace Timer {
 
         private void pushStartStopButton(bool start) {
             if (start) {
-                started = true;
+                setStarted(true);
                 this.btnStart.Text = "Stop";
                 this.clockTimer.Enabled = true;
             }
             else { // Stop
-                started = false;
+                setStarted(false);
                 this.btnStart.Text = "Start";
                 this.clockTimer.Enabled = false;
             }
@@ -199,6 +198,20 @@ namespace Timer {
             this.txtHours.Text = string.Empty;
             this.txtMinutes.Text = string.Empty;
             this.txtSeconds.Text = string.Empty;
+        }
+
+        private void setStarted(bool state) {
+            this.btnStart.Tag = state;
+        }
+
+        private bool started() {
+            bool? state = this.btnStart.Tag as bool?;
+            if (state == null) {
+                return false;
+            }
+            else {
+                return (bool) state;
+            }
         }
     }
 }
