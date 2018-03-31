@@ -47,14 +47,10 @@ namespace Timer {
 
             if (timer.CompareTo(TimeSpan.Zero) <= 0) {
                 // Timer done!
-                this.clockTimer.Enabled = false;
-                this.btnStart.Text = "Start";
+                pushStartStopButton(start: false);
+                enableInput();
                 timer = DEFAULT_TIME;
                 this.lblRemaining.Text = DEFAULT_TIME_LABEL;
-                this.txtHours.Enabled = true;
-                this.txtMinutes.Enabled = true;
-                this.txtSeconds.Enabled = true;
-                started = false;
 
                 // Bring the alarm to the foreground
                 if (this.WindowState != FormWindowState.Minimized) {
@@ -121,37 +117,22 @@ namespace Timer {
                     this.txtSeconds.Text = string.Empty;
                 }
                 else {
-                    started = true;
-                    this.btnStart.Text = "Stop";
-                    this.clockTimer.Enabled = true;
+                    pushStartStopButton(start: true);
+                    disableInput();
                     this.lblRemaining.Text = timer.ToString(@"hh\:mm\:ss");
-
-                    this.txtHours.Enabled = false;
-                    this.txtMinutes.Enabled = false;
-                    this.txtSeconds.Enabled = false;
                 }
             }
             else {
                 // Act as a "Stop" button
-
-                started = false;
-                this.btnStart.Text = "Start";
-                this.clockTimer.Enabled = false;
+                pushStartStopButton(start: false);
             }
         }
 
         private void btnReset_Click(object sender, EventArgs e) {
-            this.clockTimer.Enabled = false;
-            this.btnStart.Text = "Start";
-            this.txtHours.Text = string.Empty;
-            this.txtMinutes.Text = string.Empty;
-            this.txtSeconds.Text = string.Empty;
+            pushStartStopButton(start: false);
+            enableInput(clearFields: true);
             timer = DEFAULT_TIME;
             this.lblRemaining.Text = DEFAULT_TIME_LABEL;
-            this.txtHours.Enabled = true;
-            this.txtMinutes.Enabled = true;
-            this.txtSeconds.Enabled = true;
-            started = false;
         }
 
         private void txtSeconds_KeyPress(object sender, KeyPressEventArgs e) {
@@ -185,6 +166,37 @@ namespace Timer {
                 default:
                     break;
             }
+        }
+
+        private void pushStartStopButton(bool start) {
+            if (start) {
+                started = true;
+                this.btnStart.Text = "Stop";
+                this.clockTimer.Enabled = true;
+            }
+            else { // Stop
+                started = false;
+                this.btnStart.Text = "Start";
+                this.clockTimer.Enabled = false;
+            }
+        }
+
+        private void enableInput(bool clearFields = false) {
+            this.txtHours.Enabled = true;
+            this.txtMinutes.Enabled = true;
+            this.txtSeconds.Enabled = true;
+
+            if (clearFields) {
+                this.txtHours.Text = string.Empty;
+                this.txtMinutes.Text = string.Empty;
+                this.txtSeconds.Text = string.Empty;
+            }
+        }
+
+        private void disableInput() {
+            this.txtHours.Enabled = false;
+            this.txtMinutes.Enabled = false;
+            this.txtSeconds.Enabled = false;
         }
     }
 }
