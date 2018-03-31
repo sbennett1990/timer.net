@@ -112,7 +112,7 @@ namespace Timer {
                 }
 
                 if (timer.CompareTo(TimeSpan.Zero) <= 0) {
-                    clearInputFields();
+                    clearInput();
                 }
                 else {
                     pushStartStopButton(start: true);
@@ -185,7 +185,7 @@ namespace Timer {
             this.txtSeconds.Enabled = true;
 
             if (clearInput) {
-                clearInputFields();
+                this.clearInput();
             }
         }
 
@@ -195,7 +195,7 @@ namespace Timer {
             this.txtSeconds.Enabled = false;
         }
 
-        private void clearInputFields() {
+        private void clearInput() {
             this.txtHours.Text = string.Empty;
             this.txtMinutes.Text = string.Empty;
             this.txtSeconds.Text = string.Empty;
