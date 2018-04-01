@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStartStop = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.clockTimer = new System.Windows.Forms.Timer(this.components);
             this.txtHours = new System.Windows.Forms.TextBox();
@@ -43,17 +43,17 @@
             this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // btnStart
+            // btnStartStop
             // 
-            this.btnStart.Font = new System.Drawing.Font("Lucida Sans Unicode", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(36, 92);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(75, 23);
-            this.btnStart.TabIndex = 0;
-            this.btnStart.TabStop = false;
-            this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.btnStartStop.Font = new System.Drawing.Font("Lucida Sans Unicode", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStartStop.Location = new System.Drawing.Point(36, 92);
+            this.btnStartStop.Name = "btnStartStop";
+            this.btnStartStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStartStop.TabIndex = 0;
+            this.btnStartStop.TabStop = false;
+            this.btnStartStop.Text = "Start";
+            this.btnStartStop.UseVisualStyleBackColor = true;
+            this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
             // 
             // btnReset
             // 
@@ -178,7 +178,7 @@
             this.Controls.Add(this.txtMinutes);
             this.Controls.Add(this.txtHours);
             this.Controls.Add(this.btnReset);
-            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.btnStartStop);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -190,7 +190,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnStartStop;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Timer clockTimer;
         private System.Windows.Forms.TextBox txtHours;

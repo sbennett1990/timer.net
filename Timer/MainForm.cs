@@ -70,7 +70,7 @@ namespace Timer {
             }
         }
 
-        private void btnStart_Click(object sender, EventArgs e) {
+        private void btnStartStop_Click(object sender, EventArgs e) {
             if (!timer.Running) {
                 // Act as a "Start" button
                 if (this.lblRemaining.Text.Equals(DEFAULT_TIME_LABEL)) {
@@ -129,7 +129,7 @@ namespace Timer {
         private void txtSeconds_KeyPress(object sender, KeyPressEventArgs e) {
             switch (e.KeyChar) {
                 case '\r': // Enter key
-                    btnStart.PerformClick();
+                    btnStartStop.PerformClick();
                     e.Handled = true;
                     break;
                 default:
@@ -140,7 +140,7 @@ namespace Timer {
         private void txtMinutes_KeyPress(object sender, KeyPressEventArgs e) {
             switch (e.KeyChar) {
                 case '\r': // Enter key
-                    btnStart.PerformClick();
+                    btnStartStop.PerformClick();
                     e.Handled = true;
                     break;
                 default:
@@ -151,7 +151,7 @@ namespace Timer {
         private void txtHours_KeyPress(object sender, KeyPressEventArgs e) {
             switch (e.KeyChar) {
                 case '\r': // Enter key
-                    btnStart.PerformClick();
+                    btnStartStop.PerformClick();
                     e.Handled = true;
                     break;
                 default:
@@ -162,12 +162,12 @@ namespace Timer {
         private void pushStartStopButton(bool start) {
             if (start) {
                 timer.start();
-                this.btnStart.Text = "Stop";
+                this.btnStartStop.Text = "Stop";
                 this.clockTimer.Enabled = true;
             }
             else { // Stop
                 timer.stop();
-                this.btnStart.Text = "Start";
+                this.btnStartStop.Text = "Start";
                 this.clockTimer.Enabled = false;
             }
         }
