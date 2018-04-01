@@ -104,13 +104,13 @@ namespace Timer {
                     timer.setTime(hours, minutes, seconds);
                 }
 
-                if (timer.Done) {
-                    clearInput();
-                }
-                else {
+                if (!timer.Done) {
                     pushStartStopButton(start: true);
                     disableInput();
                     this.lblRemaining.Text = timer.timeRemainingString();
+                }
+                else {
+                    clearInput();
                 }
             }
             else {
