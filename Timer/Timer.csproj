@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Timer.cs" />
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="DoneBox.resx">
       <DependentUpon>DoneBox.cs</DependentUpon>

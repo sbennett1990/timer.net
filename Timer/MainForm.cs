@@ -9,13 +9,10 @@ using Timer.Utils;
 namespace Timer {
     public partial class MainForm : Form {
         private const string DEFAULT_TIME_LABEL = "00:00:00";
-        private static readonly TimeSpan ONE_SECOND =
-            new TimeSpan(TimeSpan.TicksPerSecond);
-        private static readonly TimeSpan DEFAULT_TIME = TimeSpan.Zero;
         private static readonly SystemSound DEFAULT_SOUND = SystemSounds.Beep;
 
         private SoundPlayer alarmSound;
-        private TimeSpan timer;
+        private Timer timer;
 
         public MainForm() {
             InitializeComponent();
@@ -32,8 +29,7 @@ namespace Timer {
                 alarmSound = null;
             }
 
-            timer = DEFAULT_TIME;
-            setStarted(false);
+            timer = new Timer();
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -41,14 +37,13 @@ namespace Timer {
         }
 
         private void clockTimer_Tick(object sender, EventArgs e) {
-            timer = timer.Subtract(ONE_SECOND);
-            this.lblRemaining.Text = timer.ToString(@"hh\:mm\:ss");
+            timer.decrement();
+            this.lblRemaining.Text = timer.timeRemainingString();
 
-            if (timer.CompareTo(TimeSpan.Zero) <= 0) {
-                // Timer done!
+            if (timer.Done) {
                 pushStartStopButton(start: false);
                 enableInput();
-                timer = DEFAULT_TIME;
+                timer.zeroOut();
                 this.lblRemaining.Text = DEFAULT_TIME_LABEL;
 
                 // Bring the alarm to the foreground
@@ -76,9 +71,8 @@ namespace Timer {
         }
 
         private void btnStart_Click(object sender, EventArgs e) {
-            if (!started()) {
+            if (!timer.Running) {
                 // Act as a "Start" button
-
                 if (this.lblRemaining.Text.Equals(DEFAULT_TIME_LABEL)) {
                     int hours = 0;
                     if (this.txtHours.Text.IsNotEmpty()) {
@@ -107,16 +101,16 @@ namespace Timer {
                         }
                     }
 
-                    timer = new TimeSpan(hours, minutes, seconds);
+                    timer.setTime(hours, minutes, seconds);
                 }
 
-                if (timer.CompareTo(TimeSpan.Zero) <= 0) {
+                if (timer.Done) {
                     clearInput();
                 }
                 else {
                     pushStartStopButton(start: true);
                     disableInput();
-                    this.lblRemaining.Text = timer.ToString(@"hh\:mm\:ss");
+                    this.lblRemaining.Text = timer.timeRemainingString();
                 }
             }
             else {
@@ -128,7 +122,7 @@ namespace Timer {
         private void btnReset_Click(object sender, EventArgs e) {
             pushStartStopButton(start: false);
             enableInput(clearInput: true);
-            timer = DEFAULT_TIME;
+            timer.zeroOut();
             this.lblRemaining.Text = DEFAULT_TIME_LABEL;
         }
 
@@ -167,12 +161,12 @@ namespace Timer {
 
         private void pushStartStopButton(bool start) {
             if (start) {
-                setStarted(true);
+                timer.start();
                 this.btnStart.Text = "Stop";
                 this.clockTimer.Enabled = true;
             }
             else { // Stop
-                setStarted(false);
+                timer.stop();
                 this.btnStart.Text = "Start";
                 this.clockTimer.Enabled = false;
             }
@@ -198,20 +192,6 @@ namespace Timer {
             this.txtHours.Text = string.Empty;
             this.txtMinutes.Text = string.Empty;
             this.txtSeconds.Text = string.Empty;
-        }
-
-        private void setStarted(bool state) {
-            this.btnStart.Tag = state;
-        }
-
-        private bool started() {
-            bool? state = this.btnStart.Tag as bool?;
-            if (state == null) {
-                return false;
-            }
-            else {
-                return (bool) state;
-            }
         }
     }
 }
