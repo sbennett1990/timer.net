@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnStartStop = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.clockTimer = new System.Windows.Forms.Timer(this.components);
@@ -179,6 +180,7 @@
             this.Controls.Add(this.txtHours);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnStartStop);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
